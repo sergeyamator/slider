@@ -11,7 +11,7 @@
             sliderImg = [],
 
             defaults = {
-                slideCount: 4g,
+                slideCount: 4,
                 controls: true,
                 prevText: 'prev',
                 nextText: 'next'

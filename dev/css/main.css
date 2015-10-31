@@ -10,14 +10,19 @@
 
 .slider {
   display: inline-block;
-  position: relative; }
+  position: relative;
+  margin-left: 200px; }
   .slider__wrapper {
-    overflow: hidden; }
+    overflow: hidden;
+    position: relative; }
   .slider__list {
     width: 5000px;
+    position: relative;
     margin: 0;
     padding: 0;
-    list-style-type: none; }
+    list-style-type: none;
+    left: 0;
+    transition: 0.3s; }
     .slider__list:after {
       content: '';
       clear: both;

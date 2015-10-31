@@ -11,7 +11,7 @@
             sliderImg = [],
 
             defaults = {
-                slideCount: 3,
+                slideCount: 4g,
                 controls: true,
                 prevText: 'prev',
                 nextText: 'next'
@@ -32,14 +32,18 @@
 
             setSliderWidth();
             addControlsButton(defaults.controls);
+            setUpListener();
 
+        }
+
+        function setUpListener() {
+            $('.button').on('click', slide);
         }
 
         function setSliderWidth() {
             var sliderWrapWidth = sliderItem.outerWidth(true) * config.slideCount;
             console.log(sliderWrapWidth);
             sliderWrap.width(sliderWrapWidth);
-
         }
 
         function addControlsButton(controls) {
@@ -54,6 +58,28 @@
                     text: defaults.prevText
                 });
             nextButton.add(prevButton).appendTo(slider);
+        }
+
+        function slide() {
+            if ($(this).hasClass('button-prev')) {
+                prevSlide();
+            } else {
+                nextSlide();
+            }
+        }
+
+        function prevSlide() {
+            var posLeft = sliderList.css('left');
+            sliderList.css({
+                left: parseInt(posLeft) - sliderItem.outerWidth(true)
+            });
+        }
+
+        function nextSlide() {
+            var posLeft = sliderList.css('left');
+            sliderList.css({
+                left: parseInt(posLeft) + sliderItem.outerWidth(true)
+            });
         }
 
     })

@@ -74,7 +74,7 @@ console.log('hi');
             }
         }
 
-        function prevSlide() {
+        function nextSlide() {
             var posLeft = sliderList.css('left');
             if (Math.abs(parseInt(posLeft)) >= parseInt(sliderWrapWidth)) return;
             sliderList.css({
@@ -83,7 +83,7 @@ console.log('hi');
 
         }
 
-        function nextSlide() {
+        function prevSlide() {
             var posLeft = sliderList.css('left');
             if (parseInt(posLeft) >= 0) return;
             sliderList.css({

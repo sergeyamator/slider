@@ -8,13 +8,13 @@ console.log('hi');
 (function ($) {
 
     $(window).load(function () {
-        console.log('hiiiii');
 
         var slider = $('.slider'),
             sliderWrap = [],
             sliderList = [],
             sliderItem = [],
             sliderImg = [],
+            sliderWrapWidth = '',
 
             defaults = {
                 slideCount: 4,
@@ -36,6 +36,7 @@ console.log('hi');
             sliderItem = slider.find('.slider__item');
             sliderImg = slider.find('.slider__img');
 
+
             setSliderWidth();
             addControlsButton(defaults.controls);
             setUpListener();
@@ -47,8 +48,7 @@ console.log('hi');
         }
 
         function setSliderWidth() {
-            var sliderWrapWidth = sliderItem.outerWidth(true) * config.slideCount;
-            console.log(sliderWrapWidth);
+            sliderWrapWidth = sliderItem.outerWidth(true) * config.slideCount;
             sliderWrap.width(sliderWrapWidth);
         }
 
@@ -76,16 +76,20 @@ console.log('hi');
 
         function prevSlide() {
             var posLeft = sliderList.css('left');
+            if (Math.abs(parseInt(posLeft)) >= parseInt(sliderWrapWidth)) return;
             sliderList.css({
                 left: parseInt(posLeft) - sliderItem.outerWidth(true)
             });
+
         }
 
         function nextSlide() {
             var posLeft = sliderList.css('left');
+            if (parseInt(posLeft) >= 0) return;
             sliderList.css({
                 left: parseInt(posLeft) + sliderItem.outerWidth(true)
             });
+
         }
 
     })

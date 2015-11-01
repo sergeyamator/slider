@@ -10,8 +10,7 @@
 
 .slider {
   display: inline-block;
-  position: relative;
-  margin-left: 200px; }
+  position: relative; }
   .slider__wrapper {
     overflow: hidden;
     position: relative; }

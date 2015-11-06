@@ -14,6 +14,7 @@
         sliderItem = [],
         sliderImg = [],
         sliderWrapWidth = 0,
+        canSlide = true,
 
         defaults = {
             slideCount: 4,
@@ -48,11 +49,18 @@
     }
 
     function slide() {
+        if(!canSlide) return;
+        canSlide = false;
+
         if ($(this).hasClass('button-prev')) {
             prevSlide();
         } else {
             nextSlide();
         }
+
+        sliderList.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
+            canSlide = true;
+        })
     }
 
     function nextSlide() {
@@ -96,5 +104,5 @@
 })(jQuery);
 
 slider.init({
-    slideCount: 6
+    slideCount: 3
 });

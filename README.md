@@ -1,5 +1,3 @@
-1. git clone https://github.com/vikulchik/template.git
-
-2. remove .git folder from project
-
-3. sudo npm install
+1. git clone https://github.com/sergeyamator/slider.git
+2. npm install
+3. bower install

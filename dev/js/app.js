@@ -1,7 +1,8 @@
-;(function() {
+;
+(function () {
     /* ------- plugins init ------- */
 
-console.log('hi');
+    console.log('hi');
 
 })();
 ;
@@ -55,9 +56,11 @@ console.log('hi');
     }
 
     function nextSlide() {
-        var posLeft = sliderList.css('left');
+        var posLeft = sliderList.css('left'),
+            stopNextValue = sliderItem.outerWidth(true) * (sliderItem.length - options.slideCount);
 
-        if (Math.abs(parseInt(posLeft)) >= parseInt(sliderWrapWidth)) return;
+
+        if (Math.abs(parseInt(posLeft)) >= stopNextValue) return;
         sliderList.css({
             left: parseInt(posLeft) - sliderItem.outerWidth(true)
         });
@@ -93,5 +96,5 @@ console.log('hi');
 })(jQuery);
 
 slider.init({
-    slideCount: 2
+    slideCount: 6
 });

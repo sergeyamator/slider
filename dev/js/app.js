@@ -21,7 +21,9 @@
             slideCount: 4,
             controls: true,
             prevText: 'prev',
-            nextText: 'next'
+            nextText: 'next',
+            auto: false,
+            autoTime: 2000
         },
         options = {};
 
@@ -95,6 +97,15 @@
         }
     }
 
+    function autoSlide() {
+        if (options.auto) {
+            var next = $('.button-next');
+            setInterval(function() {
+                next.click()
+            }, options.autoTime)
+        }
+    }
+
 
     window.slider = {
         init: function (opt) {
@@ -108,6 +119,7 @@
 
             setSliderWidth();
             addControlsButton(defaults.controls);
+            autoSlide();
             setUpListener();
 
         }
@@ -116,5 +128,7 @@
 })(jQuery);
 
 slider.init({
-    slideCount: 3
+    slideCount: 3,
+    auto: true,
+    autoTime: 3000
 });

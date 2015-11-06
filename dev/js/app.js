@@ -1,11 +1,4 @@
 ;
-(function () {
-    /* ------- plugins init ------- */
-
-    console.log('hi');
-
-})();
-;
 (function ($) {
 
     var slider = [],
@@ -25,8 +18,8 @@
             auto: false,
             autoTime: 2000
         },
-        options = {};
 
+        options = {};
 
     function setUpListener() {
         $('.button').on('click', slide);
@@ -44,17 +37,19 @@
                 class: 'button button-next',
                 text: defaults.nextText
             }),
+
             prevButton = $('<a>', {
                 class: 'button button-prev',
                 text: defaults.prevText
             });
+
         nextButton.add(prevButton).appendTo(slider);
     }
 
     function slide() {
         stopNextValue = sliderItem.outerWidth(true) * (sliderItem.length - options.slideCount);
 
-        if(!canSlide) return;
+        if (!canSlide) return;
         canSlide = false;
 
         if ($(this).hasClass('button-prev')) {
@@ -63,9 +58,18 @@
             nextSlide();
         }
 
-        sliderList.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
+        sliderList.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function () {
             canSlide = true;
         })
+    }
+
+    function autoSlide() {
+        if (options.auto) {
+            var next = $('.button-next');
+            setInterval(function () {
+                next.click()
+            }, options.autoTime)
+        }
     }
 
     function nextSlide() {
@@ -80,7 +84,6 @@
                 left: parseInt(posLeft) - sliderItem.outerWidth(true)
             });
         }
-
     }
 
     function prevSlide() {
@@ -97,16 +100,6 @@
         }
     }
 
-    function autoSlide() {
-        if (options.auto) {
-            var next = $('.button-next');
-            setInterval(function() {
-                next.click()
-            }, options.autoTime)
-        }
-    }
-
-
     window.slider = {
         init: function (opt) {
             options = $.extend({}, defaults, opt);
@@ -116,12 +109,10 @@
             sliderItem = slider.find('.slider__item');
             sliderImg = slider.find('.slider__img');
 
-
             setSliderWidth();
             addControlsButton(defaults.controls);
             autoSlide();
             setUpListener();
-
         }
     }
 

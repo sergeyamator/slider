@@ -14,6 +14,7 @@
         sliderItem = [],
         sliderImg = [],
         sliderWrapWidth = 0,
+        stopNextValue = 0,
         canSlide = true,
 
         defaults = {
@@ -49,6 +50,8 @@
     }
 
     function slide() {
+        stopNextValue = sliderItem.outerWidth(true) * (sliderItem.length - options.slideCount);
+
         if(!canSlide) return;
         canSlide = false;
 
@@ -64,23 +67,32 @@
     }
 
     function nextSlide() {
-        var posLeft = sliderList.css('left'),
-            stopNextValue = sliderItem.outerWidth(true) * (sliderItem.length - options.slideCount);
+        var posLeft = sliderList.css('left');
 
+        if (Math.abs(parseInt(posLeft)) >= stopNextValue) {
+            sliderList.css({
+                left: 0
+            })
+        } else {
+            sliderList.css({
+                left: parseInt(posLeft) - sliderItem.outerWidth(true)
+            });
+        }
 
-        if (Math.abs(parseInt(posLeft)) >= stopNextValue) return;
-        sliderList.css({
-            left: parseInt(posLeft) - sliderItem.outerWidth(true)
-        });
     }
 
     function prevSlide() {
         var posLeft = sliderList.css('left');
 
-        if (parseInt(posLeft) >= 0) return;
-        sliderList.css({
-            left: parseInt(posLeft) + sliderItem.outerWidth(true)
-        });
+        if (parseInt(posLeft) >= 0) {
+            sliderList.css({
+                left: -stopNextValue + 'px'
+            })
+        } else {
+            sliderList.css({
+                left: parseInt(posLeft) + sliderItem.outerWidth(true)
+            });
+        }
     }
 
 

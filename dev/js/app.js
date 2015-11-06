@@ -1,3 +1,9 @@
+;(function() {
+    /* ------- plugins init ------- */
+
+console.log('hi');
+
+})();
 ;
 (function ($) {
 
@@ -121,5 +127,5 @@
 slider.init({
     slideCount: 3,
     auto: true,
-    autoTime: 3000
+    autoTime: 5000
 });

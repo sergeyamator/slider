@@ -2,25 +2,26 @@
 (function ($) {
 
   var slider = [],
-    sliderWrap = null,
-    sliderList = null,
-    sliderItem = null,
-    sliderImg = null,
-    sliderWrapWidth = 0,
-    stopNextValue = 0,
-    canSlide = true,
-    autoSlideMoveId = 0,
+      sliderWrap = null,
+      sliderList = null,
+      sliderItem = null,
+      sliderImg = null,
+      sliderWrapWidth = 0,
+      stopNextValue = 0,
+      canSlide = true,
+      autoSlideMoveId = 0,
 
-    defaults = {
-      slideCount: 4,
-      controls: true,
-      prevText: 'prev',
-      nextText: 'next',
-      autoSlideMove: false,
-      autoTime: 2000
-    },
+      defaults = {
+        slideCount: 4,
+        controls: true,
+        prevText: 'prev',
+        nextText: 'next',
+        autoSlideMove: false,
+        autoTime: 2000,
+        infinityMove: false
+      },
 
-    options = {};
+      options = {};
 
   function setUpListener() {
     $('.button').on('click', slide);
@@ -38,18 +39,11 @@
   function addControlsButton(controls) {
     if (!controls) return;
 
-    var nextButton = $('<a>', {
-        class: 'button button-next',
-        'data-button': 'next',
-        text: defaults.nextText
-      }),
+    var nextButton = $('<a class="button button-next" data-button="next"></a>'),
+        prevButton = $('<a class="button button-prev" data-button="prev"></a>');
 
-      prevButton = $('<a>', {
-        class: 'button button-prev',
-        'data-button': 'prev',
-        text: defaults.prevText
-      });
-
+    nextButton.text(defaults.nextText);
+    prevButton.text(defaults.prevText);
     nextButton.add(prevButton).appendTo(slider);
   }
 
@@ -80,7 +74,7 @@
     clearInterval(autoSlideMoveId);
   }
 
-  function nextSlide() {
+  function nextInfinityMove() {
     var posLeft = sliderList.css('left');
 
     if (Math.abs(parseInt(posLeft)) >= stopNextValue) {
@@ -94,7 +88,7 @@
     }
   }
 
-  function prevSlide() {
+  function prevInfinityMove() {
     var posLeft = sliderList.css('left');
 
     if (parseInt(posLeft) >= 0) {
@@ -105,6 +99,55 @@
       sliderList.css({
         left: parseInt(posLeft) + sliderItem.outerWidth(true)
       });
+    }
+  }
+
+  function prevMove() {
+    var posLeft = sliderList.css('left');
+
+/*    if (parseInt(posLeft) >= 0) {
+      sliderList.css({
+        left: -stopNextValue + 'px'
+      })
+    } else {
+      sliderList.css({
+        left: parseInt(posLeft) + sliderItem.outerWidth(true)
+      });
+    }*/
+
+    sliderList.css({
+      left: parseInt(posLeft) + sliderItem.outerWidth(true)
+    });
+  }
+
+  function nextMove() {
+    var posLeft = sliderList.css('left');
+
+    if (parseInt(posLeft) >= 0) {
+      sliderList.css({
+        left: -stopNextValue + 'px'
+      })
+    } else {
+      sliderList.css({
+        left: parseInt(posLeft) + sliderItem.outerWidth(true)
+      });
+    }
+  }
+
+  function nextSlide() {
+    if (options.infinityMove) {
+      nextInfinityMove();
+    } else {
+      nextMove();
+    }
+  }
+
+
+  function prevSlide() {
+    if (options.infinityMove) {
+      prevInfinityMove();
+    } else {
+      prevMove();
     }
   }
 
@@ -131,5 +174,6 @@
 slider.init({
   slideCount: 3,
   autoSlideMove: true,
-  autoTime: 5000
+  autoTime: 5000,
+  infinityMove: false
 });
